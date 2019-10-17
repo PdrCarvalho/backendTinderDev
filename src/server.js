@@ -3,12 +3,15 @@ const routes = require("./routes");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
+//docker run -p  27017:27017 -v /home/mongo:/data/ -d mongo
 mongoose.connect(
-  "mongodb+srv://user:userpassword@cluster0-pkwlt.mongodb.net/omnistack?retryWrites=true&w=majority",
+  "mongodb://localhost/dev",
   {
     useNewUrlParser: true
   }
 );
+var db = mongoose.connection;
+db.on('error',console.error.bind(console,"conection error:"));
 app.use(cors());
 app.use(express.json());
 app.use(routes);

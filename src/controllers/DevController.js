@@ -14,6 +14,9 @@ module.exports = {
     });
 
     return res.json(users);
+  }, async findAll(req,res){
+    const devs = await  DevModel.find();
+    return res.json(devs)
   },
   async store(req, res) {
     const { username } = req.body;
@@ -22,7 +25,7 @@ module.exports = {
       return res.json(UserExist);
     }
     const response = await api.get(`https://api.github.com/users/${username}`);
-    // console.log(response);
+    console.log(response);
     const { name, bio, avatar_url: avatar } = response.data;
     const dev = await DevModel.create({
       name,
